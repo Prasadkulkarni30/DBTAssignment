@@ -1,0 +1,164 @@
+CREATE TABLE SALESPEOPLE
+(
+SNUM INT PRIMARY KEY,
+SNAME VARCHAR(15),
+CITY VARCHAR(25),
+COMM DECIMAL(2,2)
+);
+
+
+CREATE TABLE CUSTOMER
+(
+CNUM INT PRIMARY KEY,
+CNAME VARCHAR(15),
+CITY VARCHAR(25),
+RATING INT,
+SNUM INT,
+CONSTRAINT Cust_SNUM_FK
+FOREIGN KEY(SNUM)
+REFERENCES SALESPEOPLE(SNUM)
+);
+
+CREATE TABLE ORDERS
+(
+ONUM INT PRIMARY KEY,
+AMT DECIMAL(6,2),
+ODATE DATE,
+CNUM INT,
+SNUM INT,
+CONSTRAINT ORDER_CNUM_FK
+FOREIGN KEY(CNUM)
+REFERENCES CUSTOMER(CNUM),
+CONSTRAINT OREDER_SNUM_FK
+FOREIGN KEY(SNUM)
+REFERENCES SALESPEOPLE(SNUM)
+);
+
+
+
+DATA INSERTING:-
+
+
+
+SALESPEOPLE:-
+
+
+mysql> INSERT INTO SALESPEOPLE VALUES(1001,'Peel','London',.12);
+Query OK, 1 row affected (0.31 sec)
+
+mysql> INSERT INTO SALESPEOPLE VALUES(1002,'Serres','San Jose',.13);
+Query OK, 1 row affected (0.05 sec)
+
+
+mysql> INSERT INTO SALESPEOPLE VALUES(1004,'Motika','London',.11);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO SALESPEOPLE VALUES(1007,'Rifin','Barcelona',.15);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO SALESPEOPLE VALUES(1003,'AlexRod','New York',.10);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO SALESPEOPLE VALUES(1005,'Fran','London',.26);
+Query OK, 1 row affected (0.05 sec)
+
+
+
+CUSTOMER:-
+
+mysql> INSERT INTO CUSTOMER VALUES(2001,'Hoffman','London',100,1001);
+Query OK, 1 row affected (0.30 sec)
+
+mysql> INSERT INTO CUSTOMER VALUES(2002,'Giovanni','Rome',200,1003);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO CUSTOMER VALUES(2003,'Liu','San Jose',200,1002);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO CUSTOMER VALUES(2004,'Grass','Berlin',300,1002);
+Query OK, 1 row affected (0.30 sec)
+
+mysql> INSERT INTO CUSTOMER VALUES(2006,'Clemens','London',100,1001);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO CUSTOMER VALUES(2008,'Cisneros','San Jose',300,1007);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO CUSTOMER VALUES(2007,'Pereira','Rome',100,1004);
+Query OK, 1 row affected (0.06 sec)
+
+
+
+
+
+ORDERS:-
+
+mysql> INSERT INTO ORDERS VALUES(3001,18.69,'960310',2008,1007);
+Query OK, 1 row affected (0.29 sec)
+
+mysql> INSERT INTO ORDERS VALUES(3003,767.19,'960310',2001,1001);
+Query OK, 1 row affected (0.31 sec)
+
+mysql> INSERT INTO ORDERS VALUES(3002,1900.10,'960310',2007,1004);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO ORDERS VALUES(3005,5160.45,'960310',2003,1002);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO ORDERS VALUES(3006,1098.16,'960310',2008,1007);
+Query OK, 1 row affected (0.31 sec)
+
+mysql> INSERT INTO ORDERS VALUES(3009,1713.23,'960410',2002,1003);
+Query OK, 1 row affected (0.31 sec)
+
+mysql> INSERT INTO ORDERS VALUES(3007,75.75,'960410',2002,1003);
+Query OK, 1 row affected (0.31 sec)
+
+mysql> INSERT INTO ORDERS VALUES(3008,4723.00,'960510',2006,1001);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO ORDERS VALUES(3010,1309.95,'960610',2004,1002);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO ORDERS VALUES(3011,9891.88,'960610',2006,1001);
+Query OK, 1 row affected (0.06 sec)
+
+
+
+
+
+QUERIES:-
+
+1)
+
+mysql> DESCRIBE SALESPEOPLE;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| SNUM  | int(11)      | NO   | PRI | NULL    |       |
+| SNAME | varchar(15)  | YES  |     | NULL    |       |
+| CITY  | varchar(25)  | YES  |     | NULL    |       |
+| COMM  | decimal(2,2) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+2)
+
+mysql> SELECT CNAME FROM CUSTOMER WHERE RATING = 100;
++---------+
+| CNAME   |
++---------+
+| Hoffman |
+| Clemens |
+| Pereira |
++---------+
+3 rows in set (0.00 sec)
+
+3)
+
+Mysql> 
+mysql> SELECT * FROM CUSTOMER WHERE CITY IS NULL;
+Empty set (0.00 sec)
+
+
+
